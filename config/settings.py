@@ -214,6 +214,10 @@ SWAGGER_SETTINGS = {
 #             "endpoint": os.environ.get("PAYPAL_URL", "https://api.sandbox.paypal.com"),
 #         },
 #     ),
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/main
 # }
 
 
@@ -228,3 +232,19 @@ DATABASES = {
         'PORT': '5432',
         }
     }
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+=======
+# }
+>>>>>>> origin/main
+>>>>>>> refs/remotes/origin/main

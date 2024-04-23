@@ -19,6 +19,10 @@ class TiresSerializer(serializers.ModelSerializer):
         # ]
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/main
 class TiresidSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tires
@@ -28,6 +32,10 @@ class TiresidSerializer(serializers.ModelSerializer):
 class TiresCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tires
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> refs/remotes/origin/main
 # class TiresidSerializer(serializers.ModelSerializer):
 #     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
 #     width = serializers.PrimaryKeyRelatedField(queryset=Width.objects.all())
@@ -77,6 +85,10 @@ class TiresidSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tires
         # fields = '__all__'
+<<<<<<< HEAD
+=======
+>>>>>>> origin/main
+>>>>>>> refs/remotes/origin/main
         fields = [
             'id',
             'title',
@@ -106,6 +118,10 @@ class TiresidSerializer(serializers.ModelSerializer):
 
         ]
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/main
 
 
 
@@ -240,6 +256,10 @@ class TiresidSerializer(serializers.ModelSerializer):
 #
 #     def get_load_index_for_dual(self, obj):
 #         return obj.load_index_for_dual.title
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> refs/remotes/origin/main
     # def get_title(self, obj):
     #     return obj.title
 
@@ -311,6 +331,10 @@ class TiresidSerializer(serializers.ModelSerializer):
 
     def get_load_index_for_dual(self, obj):
         return obj.load_index_for_dual.title
+<<<<<<< HEAD
+=======
+>>>>>>> origin/main
+>>>>>>> refs/remotes/origin/main
 
 
 class Categoryserializer(serializers.ModelSerializer):
@@ -362,7 +386,16 @@ class FavoriteSerializer(serializers.ModelSerializer):
             )
 
         return data
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/main
 
 
 
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
+>>>>>>> refs/remotes/origin/main

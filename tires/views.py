@@ -6,7 +6,22 @@ from rest_framework import generics, permissions
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
+<<<<<<< HEAD
 from tires.serializers import *
+=======
+from tires.serializers import (
+    TiresSerializer,
+    Categoryserializer,
+    Reviewsserializer,
+    TiresidSerializer,
+<<<<<<< HEAD
+    FavoriteSerializer,
+    TiresCreateSerializer,
+=======
+    FavoriteSerializer
+>>>>>>> origin/main
+)
+>>>>>>> refs/remotes/origin/main
 
 from rest_framework import generics
 from .models import *
@@ -100,10 +115,20 @@ class ReviewsView(generics.RetrieveUpdateDestroyAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+<<<<<<< HEAD
 
 class TiresCreateAPIView(generics.CreateAPIView):
     queryset = Tires.objects.all()
     serializer_class = TiresCreateSerializer
+=======
+<<<<<<< HEAD
+class TiresCreateAPIView(generics.CreateAPIView):
+    queryset = Tires.objects.all()
+    serializer_class = TiresCreateSerializer
+=======
+
+>>>>>>> origin/main
+>>>>>>> refs/remotes/origin/main
 
 
 #

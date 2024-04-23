@@ -12,6 +12,13 @@ urlpatterns = [
     path('list/edit/<int:pk>/', TiresRetrieveUpdateDestroyAPIView.as_view()),
     path('favorite/', FavoriteAPIView.as_view(), name='favorite-list'),
     path('favorite/remove/<int:book_id>/', RemoveFromFavoritesView.as_view(), name='remove-from-favorites'),
+<<<<<<< HEAD
     path('create/', TiresCreateAPIView.as_view())
+=======
+<<<<<<< HEAD
+    path('create/', TiresCreateAPIView.as_view())
+=======
+>>>>>>> origin/main
+>>>>>>> refs/remotes/origin/main
 
 ]

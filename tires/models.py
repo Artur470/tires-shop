@@ -103,6 +103,10 @@ class Category(models.Model):
 
 
 class Tires(models.Model):
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/main
     title = models.CharField(max_length=100)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     width = models.ForeignKey('Width', on_delete=models.CASCADE)
@@ -127,6 +131,10 @@ class Tires(models.Model):
     in_stock = models.BooleanField()
     model = models.ForeignKey('Model', on_delete=models.CASCADE)
     load_index_for_dual = models.ForeignKey('LoadIndexForDual', on_delete=models.CASCADE)
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> refs/remotes/origin/main
     title = models.CharField(max_length=100, blank=True, null=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=True, null=True)
     width = models.ForeignKey('Width', on_delete=models.CASCADE, blank=True, null=True)
@@ -151,11 +159,20 @@ class Tires(models.Model):
     in_stock = models.BooleanField(blank=True, null=True)
     model = models.ForeignKey('Model', on_delete=models.CASCADE,  blank=True, null=True)
     load_index_for_dual = models.ForeignKey('LoadIndexForDual', on_delete=models.CASCADE,  blank=True, null=True)
+<<<<<<< HEAD
+=======
+>>>>>>> origin/main
+>>>>>>> refs/remotes/origin/main
     # reviews = models.ForeignKey('Reviews', on_delete=models.CASCADE,  blank=True, null=True)
 
     def __str__(self):
         return str(self.title)
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/main
 
 
 
@@ -173,6 +190,10 @@ class Tires(models.Model):
 #     def __str__(self):
 #         return f"{self.user}'s - {self.rating} - star rating for {self.tires}"
 
+<<<<<<< HEAD
+=======
+>>>>>>> origin/main
+>>>>>>> refs/remotes/origin/main
 class Reviews(models.Model):
     tires = models.ForeignKey('Tires', on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
