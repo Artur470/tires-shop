@@ -11,7 +11,10 @@ class SuperUser(BaseUserManager):
         user.save()
         return user
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
     def create_superuser(self, username, email, password):
 
         user = self.create_user(

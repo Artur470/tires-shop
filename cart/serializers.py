@@ -24,6 +24,7 @@ class CartSerializer(serializers.ModelSerializer):
                 total_price += item.tires.price * item.quantity
         return total_price
 
+<<<<<<< HEAD
     # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
 class CartItemSerializer(serializers.Serializer):
@@ -59,6 +60,44 @@ class CartItemSerializer(serializers.Serializer):
             if user.is_authenticated and user.cart.id != value.id:
                 raise ValidationError("You can only add items to your own cart.")
             return value
+=======
+
+class CartItemSerializer(serializers.ModelSerializer):
+    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = CartItem
+        fields = [
+            "id",
+            "cart",
+            "user",
+            "tires",
+            "quantity",
+        ]
+
+    def validate(self, data):
+        quantity = data["quantity"]
+        tires = data["tires"]
+        user = data['user']
+
+        if quantity > tires.quantity:
+            raise serializers.ValidationError(
+                {"error": "The quantity of your request is less than the quantity of the product itself!"}
+            )
+
+        if CartItem.objects.filter(tires=tires, cart__user=user).exists():
+            raise serializers.ValidationError(
+                {"error": "This product is already in the cart"}
+            )
+
+        return data
+
+    def validate_cart(self, value):
+        user = self.context['request'].user
+        if user.is_authenticated and user.cart.id != value.id:
+            raise ValidationError("You can only add items to your own cart.")
+        return value
+>>>>>>> origin/main
 
 
 class OrderSerializer(serializers.ModelSerializer):

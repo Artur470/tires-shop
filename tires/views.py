@@ -11,8 +11,12 @@ from tires.serializers import (
     Categoryserializer,
     Reviewsserializer,
     TiresidSerializer,
+<<<<<<< HEAD
     FavoriteSerializer,
     TiresCreateSerializer,
+=======
+    FavoriteSerializer
+>>>>>>> origin/main
 )
 
 from rest_framework import generics
@@ -107,9 +111,13 @@ class ReviewsView(generics.RetrieveUpdateDestroyAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+<<<<<<< HEAD
 class TiresCreateAPIView(generics.CreateAPIView):
     queryset = Tires.objects.all()
     serializer_class = TiresCreateSerializer
+=======
+
+>>>>>>> origin/main
 
 
 #

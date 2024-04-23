@@ -13,7 +13,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .models import CartItem
+<<<<<<< HEAD
 from .serializers import *
+=======
+>>>>>>> origin/main
 
 
 class CartItemList(generics.ListCreateAPIView):
