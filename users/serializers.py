@@ -107,7 +107,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
                 message='Username can only contain English letters, numbers, and special characters (!@#$%^&*()_+.-)',
             ),
         ],
-        min_length=6,
+        min_length=4,
         max_length=20,
     )
 

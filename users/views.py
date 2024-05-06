@@ -109,7 +109,7 @@ class VerifyEmailView(GenericAPIView):
 
 class UserProfileView(generics.GenericAPIView):
     serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         tags=['Authentication'],

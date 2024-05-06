@@ -11,14 +11,7 @@ class SuperUser(BaseUserManager):
         user.save()
         return user
 
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
->>>>>>> refs/remotes/origin/main
     def create_superuser(self, username, email, password):
 
         user = self.create_user(

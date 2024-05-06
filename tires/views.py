@@ -1,40 +1,23 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import generics, permissions
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-
-<<<<<<< HEAD
 from tires.serializers import *
-=======
-from tires.serializers import (
-    TiresSerializer,
-    Categoryserializer,
-    Reviewsserializer,
-    TiresidSerializer,
-<<<<<<< HEAD
-    FavoriteSerializer,
-    TiresCreateSerializer,
-=======
-    FavoriteSerializer
->>>>>>> origin/main
-)
->>>>>>> refs/remotes/origin/main
-
-from rest_framework import generics
 from .models import *
-
 from rest_framework import status
-from django.db.models import Count
-from tires.models import (
-    Tires,
-    Category,
-    Reviews,
-    Favorite
-)
-
+from django.shortcuts import render, redirect
+from rest_framework import generics, mixins
+from rest_framework import generics, permissions
+from rest_framework.exceptions import PermissionDenied
+from .models import Favorite
+from .serializers import FavoriteSerializer
+from drf_yasg.utils import swagger_auto_schema
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from rest_framework.decorators import action
 
 class Categoryviewid(generics.ListAPIView):
     queryset = Category.objects.all()
@@ -68,20 +51,6 @@ class Tiresviewid(generics.ListCreateAPIView):
         return Tires.objects.filter(id=self.kwargs["tir_id"])
 
 
-# class Reviewsview(generics.ListCreateAPIView):
-#     queryset = Reviews.objects.all()
-#     serializer_class = Reviewsserializer
-#     permission_classes = [IsAuthenticated]
-#
-#     def get_queryset(self, *args, **kwargs):
-#         return Reviews.objects.filter(id=self.kwargs["rev_id"])
-#
-#     def get_serializer_context(self):
-#         user_id = self.request.user.id
-#         tir_id = self.kwargs["tir_id"]
-#         return {"user_id": user_id, "tir_id": tir_id}
-
-
 class ReviewsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reviews.objects.all()
     serializer_class = Reviewsserializer
@@ -99,7 +68,6 @@ class ReviewsView(generics.RetrieveUpdateDestroyAPIView):
         else:
             return Reviews.objects.annotate(num_reviews=Count('reviews')).order_by('-num_reviews')
 
-
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data)
@@ -108,112 +76,69 @@ class ReviewsView(generics.RetrieveUpdateDestroyAPIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-<<<<<<< HEAD
-
 class TiresCreateAPIView(generics.CreateAPIView):
     queryset = Tires.objects.all()
     serializer_class = TiresCreateSerializer
-=======
-<<<<<<< HEAD
-class TiresCreateAPIView(generics.CreateAPIView):
+    # permission_classes = [IsAdminUser]
+
+class DeleteTiresView(generics.DestroyAPIView):
     queryset = Tires.objects.all()
-    serializer_class = TiresCreateSerializer
-=======
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'tir_id'
 
->>>>>>> origin/main
->>>>>>> refs/remotes/origin/main
+    def perform_destroy(self, instance):
 
+        if self.request.user == instance.user:
+            instance.delete()
 
-#
-# @api_view(['GET', 'POST'])
-# def addcartview(request):
-#
-#
-#     return Response({'mesic':'hello'})
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
 
-class TiresRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Tires.objects.all()
-    serializer_class = TiresidSerializer
-
-    @swagger_auto_schema(
-        tags=['Tires'],
-        operation_description="Этот ендпоинт предоставляет "
-                              "возможность редактировать "
-                              "текущий товар. ",
-    )
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
-
-    def get_queryset(self, *args, **kwargs):
-        return Tires.objects.filter(id=self.kwargs["pk"])
+            raise PermissionDenied("You do not have permission to delete this tires.")
 
 
-class FavoriteAPIView(generics.ListCreateAPIView):
-    serializer_class = FavoriteSerializer
-    queryset = Favorite.objects.all()
 
-
-class RemoveFromFavoritesView(generics.DestroyAPIView):
+class FavoriteView(generics.ListCreateAPIView):
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
-    @swagger_auto_schema(
-        tags=['Favorite'],
-        operation_description="Этот ендпоинт предоставляет "
-                              "возможность редактировать "
-                              "текущий товар в избранном. ",
-    )
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+    def list(self, request):
+        favorites = Favorite.objects.filter(user=request.user)
+        serializer = FavoriteSerializer(favorites, many=True)
+        return Response(serializer.data)
 
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+    @action(detail=True, methods=['post'])
+    def add(self, request, tir_id=None):
+        tires = Tires.objects.get(tir_id=tir_id)
+        favorite, created = Favorite.objects.get_or_create(user=request.user, tires=tires)
+        if created:
+            return Response({'status': 'Tires added to favorites'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'status': 'Tires was already in favorites'}, status=status.HTTP_409_CONFLICT)
 
-    def get_queryset(self, *args, **kwargs):
-        return Favorite.objects.filter(id=self.kwargs["pk"])
+class RemoveFavoriteView(generics.DestroyAPIView):
+    queryset = Favorite.objects.all()
+    #permission_classes = [IsAuthenticated]
 
-    # @swagger_auto_schema(
-    #     tags=['Favorite'],
-    #     manual_parameters=[
-    #         openapi.Parameter('tir_id', openapi.IN_PATH,
-    #                           description="ID шины, которую вы хотите удалить из избранного",
-    #                           type=openapi.TYPE_INTEGER),
-    #     ],
-    #     responses={
-    #         204: "Tires removed from favorites successfully.",
-    #     }
-    # )
-    # def delete(self, request, *args, **kwargs):
-    #     try:
-    #         user = request.user
-    #         tir_id = self.kwargs.get('tir_id')
-    #
-    #         if not tir_id:
-    #             return Response({
-    #                 'error': 'fav_id parameter is missing.'},
-    #                 status=status.HTTP_400_BAD_REQUEST)
-    #
-    #         book = get_object_or_404(Tires, id=tir_id)
-    #
-    #         try:
-    #             favorite_tires = Favorite.objects.get(user=user, tires=tires)
-    #             favorite_tires.delete()
-    #             return Response(status=status.HTTP_204_NO_CONTENT)
-    #         except Favorite.DoesNotExist:
-    #             return Response({
-    #                 'message': 'Tires is not in favorites.'},
-    #                 status=status.HTTP_404_NOT_FOUND)
-    #     except Exception as e:
-    #         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request, tir_id=None):
+
+        try:
+            tires = Tires.objects.get(tir_id=tir_id)
+            favorite = Favorite.objects.filter(user=request.user, tires=tires)
+
+            if favorite.exists():
+                favorite.delete()
+                return Response({'status': 'Tires removed from favorites'}, status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({'status': 'Tires not found in favorites'}, status=status.HTTP_404_NOT_FOUND)
+
+        except Tires.DoesNotExist:
+            return Response({'status': 'Tires not found'}, status=status.HTTP_404_NOT_FOUND)
 

@@ -19,23 +19,26 @@ class TiresSerializer(serializers.ModelSerializer):
         # ]
 
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/main
+
 class TiresidSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tires
-        fields = '__all__'
+        class Meta:
+            model = Tires
+            fields = [
+                'id',
+                'title',
+                'profile',
+                'price',
+                'promotion',
+                'in_stock',
+                'state'
+            ]
 
 
 class TiresCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tires
-<<<<<<< HEAD
-=======
-=======
->>>>>>> refs/remotes/origin/main
+        fields = '__all__'
+
 # class TiresidSerializer(serializers.ModelSerializer):
 #     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
 #     width = serializers.PrimaryKeyRelatedField(queryset=Width.objects.all())
@@ -85,10 +88,7 @@ class TiresidSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tires
         # fields = '__all__'
-<<<<<<< HEAD
-=======
->>>>>>> origin/main
->>>>>>> refs/remotes/origin/main
+
         fields = [
             'id',
             'title',
@@ -117,11 +117,6 @@ class TiresidSerializer(serializers.ModelSerializer):
             'load_index_for_dual'
 
         ]
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/main
 
 
 
@@ -256,10 +251,7 @@ class TiresidSerializer(serializers.ModelSerializer):
 #
 #     def get_load_index_for_dual(self, obj):
 #         return obj.load_index_for_dual.title
-<<<<<<< HEAD
-=======
-=======
->>>>>>> refs/remotes/origin/main
+
     # def get_title(self, obj):
     #     return obj.title
 
@@ -331,10 +323,6 @@ class TiresidSerializer(serializers.ModelSerializer):
 
     def get_load_index_for_dual(self, obj):
         return obj.load_index_for_dual.title
-<<<<<<< HEAD
-=======
->>>>>>> origin/main
->>>>>>> refs/remotes/origin/main
 
 
 class Categoryserializer(serializers.ModelSerializer):
@@ -367,35 +355,22 @@ class Reviewsserializer(serializers.ModelSerializer):
 
 
 class FavoriteSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Favorite
-        fields = [
-            "id",
-            "user",
-            "tires",
-        ]
+        fields = ['id', 'user', 'tires']
+        read_only_fields = ['user']
 
-    def validate(self, data):
-        user = data.get("user")
-        tires = data.get("tires")
+    def validate_tires(self, value):
 
-        if Favorite.objects.filter(user=user, tires=tires).exists():
-            raise serializers.ValidationError(
-                {"error": "This tire is already in user's favorites list"}
-            )
+        if Favorite.objects.filter(user=self.context['request'].user, tires=value).exists():
+            raise serializers.ValidationError("This tire is already in your favorites.")
+        return value
 
-        return data
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/main
+    def create(self, validated_data):
+
+        user = self.context['request'].user
+        return Favorite.objects.create(user=user, **validated_data)
 
 
 
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> origin/main
->>>>>>> refs/remotes/origin/main

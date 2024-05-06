@@ -24,10 +24,7 @@ class CartSerializer(serializers.ModelSerializer):
                 total_price += item.tires.price * item.quantity
         return total_price
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/main
+
     # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
 class CartItemSerializer(serializers.Serializer):
@@ -63,10 +60,6 @@ class CartItemSerializer(serializers.Serializer):
             if user.is_authenticated and user.cart.id != value.id:
                 raise ValidationError("You can only add items to your own cart.")
             return value
-<<<<<<< HEAD
-=======
-=======
->>>>>>> refs/remotes/origin/main
 
 class CartItemSerializer(serializers.ModelSerializer):
     # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -103,10 +96,6 @@ class CartItemSerializer(serializers.ModelSerializer):
         if user.is_authenticated and user.cart.id != value.id:
             raise ValidationError("You can only add items to your own cart.")
         return value
-<<<<<<< HEAD
-=======
->>>>>>> origin/main
->>>>>>> refs/remotes/origin/main
 
 
 class OrderSerializer(serializers.ModelSerializer):

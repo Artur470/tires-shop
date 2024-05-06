@@ -1,3 +1,4 @@
+import os.path
 from pathlib import Path
 from datetime import timedelta
 from decouple import config
@@ -214,10 +215,8 @@ SWAGGER_SETTINGS = {
 #             "endpoint": os.environ.get("PAYPAL_URL", "https://api.sandbox.paypal.com"),
 #         },
 #     ),
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/main
+
+
 # }
 
 
@@ -232,8 +231,25 @@ DATABASES = {
         'PORT': '5432',
         }
     }
-<<<<<<< HEAD
-=======
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": os.path.join(BASE_DIR, 'review_cache'),
+    }
+}
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
 
 
 
@@ -241,10 +257,3 @@ DATABASES = {
 
 
 
-
-
-
-=======
-# }
->>>>>>> origin/main
->>>>>>> refs/remotes/origin/main

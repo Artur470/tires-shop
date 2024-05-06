@@ -1,0 +1,62 @@
+[33mcommit 149a8e515cbd81177397c6a80fee3ce1944e47d9[m[33m ([m[1;36mHEAD -> [m[1;32mnew-branch[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mfeature/new-feature-name[m[33m)[m
+Merge: 5bf26b9 4a87f60
+Author: Artur470 <arturunkulov30@gmail.com>
+Date:   Tue Apr 23 20:12:51 2024 +0600
+
+    Complete merge
+
+[33mcommit 5bf26b9f7bf921dff93cca3a2f00810af298b7d6[m[33m ([m[1;31morigin/shop[m[33m)[m
+Merge: 770d5ec 275227b
+Author: Artur470 <arturunkulov30@gmail.com>
+Date:   Tue Apr 23 17:55:00 2024 +0600
+
+    Merge remote-tracking branch 'origin/shop' into shop
+    
+    # Conflicts:
+    #       cart/serializers.py
+    #       cart/views.py
+    #       config/settings.py
+    #       tires/models.py
+    #       tires/serializers.py
+    #       tires/urls.py
+    #       tires/views.py
+    #       users/managers.py
+
+[33mcommit 770d5ec34610a7ac7223e4e61a0eecbfcaaccf27[m
+Merge: 7c1a734 b7a525c
+Author: Artur470 <arturunkulov30@gmail.com>
+Date:   Tue Apr 23 17:33:01 2024 +0600
+
+    tires
+
+[33mcommit 275227b48e5b48652b5fd8c60629d9148a2c868b[m
+Merge: 7c1a734 b7a525c
+Author: Artur470 <arturunkulov30@gmail.com>
+Date:   Tue Apr 23 17:33:01 2024 +0600
+
+    tires
+
+[33mcommit 4a87f60b5941307ca3b9e274b106b553e2f1ad6c[m[33m ([m[1;33mtag: v1.0[m[33m, [m[1;32mnew-feature[m[33m)[m
+Merge: 7c1a734 b7a525c
+Author: Artur470 <arturunkulov30@gmail.com>
+Date:   Tue Apr 23 17:33:01 2024 +0600
+
+    tires
+
+[33mcommit 7c1a7349663710294bc9a1cd7bd2e2daefde8952[m
+Author: Artur470 <arturunkulov30@gmail.com>
+Date:   Tue Apr 23 17:29:10 2024 +0600
+
+    tires
+
+[33mcommit a6325f57cd4f6312fd64f994fed98f519ab9950e[m
+Author: Artur470 <arturunkulov30@gmail.com>
+Date:   Sat Apr 6 10:16:57 2024 +0600
+
+    reviews
+
+[33mcommit b7a525c56710cd26581528fa36053cb36f20abe5[m
+Author: Artur470 <arturunkulov30@gmail.com>
+Date:   Sat Apr 6 10:16:57 2024 +0600
+
+    reviews
