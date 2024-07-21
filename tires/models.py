@@ -1,7 +1,7 @@
 from django.db import models
 from users.models import User
 from rest_framework.authtoken.models import Token
-
+from django.conf import settings
 
 class Width(models.Model):
     title = models.FloatField()
@@ -18,7 +18,7 @@ class Profile(models.Model):
 
 
 class Diameter(models.Model):
-    title = models.CharField()
+    title = models.CharField(max_length=200)
 
     def __str__(self):
         return f'{self.title}'
@@ -88,7 +88,7 @@ class Model(models.Model):
 
 
 class ExternalNoiseLevel(models.Model):
-    title = models.CharField()
+    title = models.CharField(max_length=200)
 
     def __str__(self):
         return f'{self.title}'
@@ -133,7 +133,7 @@ class Tires(models.Model):
 
 
 class Reviews(models.Model):
-    tires = models.ForeignKey('Tires', on_delete=models.CASCADE, related_name='reviews')
+    tires = models.ForeignKey('Tires', related_name='reviews', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.TextField(blank=True, null=True)
     rating = models.PositiveIntegerField(choices=((1, '1 star'), (2, '2 star'), (3, '3 star'), (4, '4 star'), (5, '5 star')))
@@ -143,12 +143,12 @@ class Reviews(models.Model):
 
 
 class Favorite(models.Model):
-    creation_date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tires = models.ForeignKey(Tires, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ['user', 'tires']
+        unique_together = ('user', 'tires')
 
     def __str__(self):
-        return f"user: {self.user}, tires: {self.tires}"
+        return f"{self.user.username} - {self.tires.name}"

@@ -4,9 +4,6 @@ from tires.models import (
     Category,
     # Reviews,
 
-
-
-
 )
 
 admin.site.register(Tires),

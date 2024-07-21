@@ -23,9 +23,3 @@ urlpatterns = [
     path('me/', UserMeView.as_view(), name='users-me')
 
  ]
-
-SIMPLE_JWT = {
-
-    'AUTH_HEADER_TYPES': ('JWT',),
-
-}
